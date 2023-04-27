@@ -1,4 +1,4 @@
-package com.formsvalidation;
+package com.app.boilerplat;
 
 import android.os.Build;
 import android.os.Bundle;

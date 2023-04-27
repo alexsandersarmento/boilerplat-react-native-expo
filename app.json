@@ -1,10 +1,20 @@
 {
   "expo": {
-    "name": "FormsValidation",
-    "slug": "FormsValidation",
+    "name": "Boilerplat",
+    "slug": "Boilerplat",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "package": "com.app.boilerplat"
+    },
+    "ios": {
+      "bundleIdentifier": "com.app.boilerplat"
+    },
+    "scheme": "myapp",
+    "web": {
+      "bundler": "metro"
+    }
   }
 }
