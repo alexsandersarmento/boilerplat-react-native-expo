@@ -3,12 +3,11 @@ import { Button, Center, VStack } from 'native-base'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
-import { useRouter } from 'expo-router'
 
 import Form from '../../components/Form'
 import { useAuth } from '../../hooks/useAuth'
 
-const loginSchema = z.object({
+const userSchema = z.object({
   email: z.string().email({
     message: 'The email is invalid',
   }).nonempty({
@@ -21,27 +20,24 @@ const loginSchema = z.object({
   }).default(''),
 })
 
-type TLoginData = z.infer<typeof loginSchema>
+type TUserData = z.infer<typeof userSchema>
 
-export default function Login() {
-  const loginForm = useForm<TLoginData>({
-    resolver: zodResolver(loginSchema),
+export default function SignUp() {
+  const userForm = useForm<TUserData>({
+    resolver: zodResolver(userSchema),
   })
-
-  const navigation = useRouter()
-
   const { login } = useAuth()
 
-  const { handleSubmit, formState: { isSubmitting } } = loginForm
+  const { handleSubmit, formState: { isSubmitting } } = userForm
 
-  const handleLogin = (data: TLoginData) => {
+  const handleLogin = (data: TUserData) => {
     login(data)
   }
 
   return (
     <Center flex={1} bg='muted.50'>
       <VStack space={2} w='90%'>
-        <FormProvider {...loginForm}>
+        <FormProvider {...userForm}>
           <Form.Field w='full'>
             <Form.Label>Email</Form.Label>
             <Form.Input name='email' />
@@ -54,9 +50,6 @@ export default function Login() {
           </Form.Field>
         </FormProvider>
         <Button onPress={handleSubmit(handleLogin)} isLoading={isSubmitting} w='full'>
-          Login
-        </Button>
-        <Button onPress={() => navigation.push('/signUp')} variant='outline' w='full'>
           Sign Up
         </Button>
       </VStack>
