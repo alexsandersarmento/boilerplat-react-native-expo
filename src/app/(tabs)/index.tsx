@@ -7,9 +7,9 @@ export default function HelloWorld() {
   const { logout, user } = useAuth()
 
   return (
-    <Center flex={1}>
+    <Center flex={1} bg='muted.50'>
       <VStack space={2} w='90%'>
-        <Text>Name: {user?.name}</Text>
+        <Text>Email: {user?.email}</Text>
         <Text>Password: {user?.password}</Text>
         <Button onPress={logout} w='100%'>
           Logout
