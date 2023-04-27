@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Center, VStack } from 'native-base'
+import { Button, Center, VStack, useColorModeValue } from 'native-base'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -39,7 +39,7 @@ export default function Login() {
   }
 
   return (
-    <Center flex={1} bg='muted.50'>
+    <Center flex={1} bg={useColorModeValue('gray.50', 'gray.800')}>
       <VStack space={2} w='90%'>
         <FormProvider {...loginForm}>
           <Form.Field w='full'>
