@@ -8,8 +8,10 @@ import Form from '../../components/Form'
 import { useAuth } from '../../hooks/useAuth'
 
 const loginSchema = z.object({
-  name: z.string().nonempty({
-    message: 'The name is required',
+  email: z.string().email({
+    message: 'The email is invalid',
+  }).nonempty({
+    message: 'The email is required',
   }).default(''),
   password: z.string().nonempty({
     message: 'The password is required',
@@ -37,9 +39,9 @@ export default function Login() {
         <VStack space={2} w='90%'>
           <FormProvider {...loginForm}>
             <Form.Field w='100%'>
-              <Form.Label>Name</Form.Label>
-              <Form.Input name='name' />
-              <Form.ErrorMessage field='name' />
+              <Form.Label>Email</Form.Label>
+              <Form.Input name='email' />
+              <Form.ErrorMessage field='email' />
             </Form.Field>
             <Form.Field w='100%'>
               <Form.Label>Password</Form.Label>

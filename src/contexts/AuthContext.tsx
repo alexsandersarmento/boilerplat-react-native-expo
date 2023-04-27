@@ -3,7 +3,7 @@ import { MMKV, useMMKVObject } from 'react-native-mmkv'
 import { useRouter, useSegments } from 'expo-router'
 
 interface IUser {
-  name: string;
+  email: string;
   password: string;
 }
 
