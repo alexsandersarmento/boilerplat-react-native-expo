@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "827377285797",
+    "project_id": "boilerplat-bd7ff",
+    "storage_bucket": "boilerplat-bd7ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827377285797:android:f718c6fa615a187ebaeb4c",
+        "android_client_info": {
+          "package_name": "com.app.boilerplat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827377285797-k33n3r44e8f0rd24chq228bpqg97epgi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFT65ApzkrpwCncvfzIYD3eSjnq2OBMlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827377285797-k33n3r44e8f0rd24chq228bpqg97epgi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "827377285797-nik1f8m7ssbesbvuc87578482n2kpott.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.boilerplat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
