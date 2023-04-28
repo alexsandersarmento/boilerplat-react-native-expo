@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 import { useRouter } from 'expo-router'
+import auth from '@react-native-firebase/auth'
 
 import Form from '../../components/Form'
 import { useAuth } from '../../hooks/useAuth'
@@ -34,8 +35,14 @@ export default function Login() {
 
   const { handleSubmit, formState: { isSubmitting } } = loginForm
 
-  const handleLogin = (data: TLoginData) => {
-    login(data)
+  const handleLogin = async (data: TLoginData) => {
+    auth().signInWithEmailAndPassword(data.email, data.password)
+      .then(async ({ user }) => {
+        login(user)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   return (

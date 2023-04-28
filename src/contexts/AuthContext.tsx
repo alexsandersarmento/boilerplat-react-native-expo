@@ -1,10 +1,11 @@
 import React, { createContext, useEffect } from 'react'
 import { MMKV, useMMKVObject } from 'react-native-mmkv'
 import { useRouter, useSegments } from 'expo-router'
+import auth from '@react-native-firebase/auth'
 
 interface IUser {
-  email: string;
-  password: string;
+  displayName: string | null;
+  email: string | null;
 }
 
 interface IAuthContextProvider {
@@ -45,7 +46,11 @@ export const AuthProvider: React.FC<IAuthContextProvider> = ({ children }) => {
   }
 
   const logout = () => {
-    storage.delete('user')
+    auth().signOut().then(() => {
+      storage.delete('user')
+    }).catch(error => {
+      console.error(error)
+    })
   }
 
   return (
