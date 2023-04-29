@@ -7,10 +7,10 @@
       "**/*"
     ],
     "android": {
-      "package": "com.app.boilerplat"
+      "package": "com.boilerplat"
     },
     "ios": {
-      "bundleIdentifier": "com.app.boilerplat"
+      "bundleIdentifier": "com.boilerplat"
     },
     "scheme": "myapp",
     "web": {
