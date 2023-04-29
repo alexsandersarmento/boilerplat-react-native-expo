@@ -1,4 +1,4 @@
-package com.app.boilerplat;
+package com.boilerplat;
 
 import android.app.Application;
 import android.content.res.Configuration;

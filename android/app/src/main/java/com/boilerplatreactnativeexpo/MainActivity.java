@@ -1,4 +1,4 @@
-package com.app.boilerplat;
+package com.boilerplat;
 
 import android.os.Build;
 import android.os.Bundle;
