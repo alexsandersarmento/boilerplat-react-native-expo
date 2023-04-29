@@ -36,13 +36,12 @@ export default function Login() {
   const { handleSubmit, formState: { isSubmitting } } = loginForm
 
   const handleLogin = async (data: TLoginData) => {
-    auth().signInWithEmailAndPassword(data.email, data.password)
-      .then(async ({ user }) => {
-        login(user)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    try {
+      const { user } = await auth().signInWithEmailAndPassword(data.email, data.password)
+      login(user)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
