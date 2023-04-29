@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.app.boilerplat</string>
+	<string>com.boilerplat</string>
 	<key>PROJECT_ID</key>
 	<string>boilerplat-bd7ff</string>
 	<key>STORAGE_BUCKET</key>
