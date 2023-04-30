@@ -1,40 +1,48 @@
 {
   "project_info": {
-    "project_number": "827377285797",
-    "project_id": "boilerplat-bd7ff",
-    "storage_bucket": "boilerplat-bd7ff.appspot.com"
+    "project_number": "1066131766845",
+    "project_id": "boilerplat-react-native-expo",
+    "storage_bucket": "boilerplat-react-native-expo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:827377285797:android:f718c6fa615a187ebaeb4c",
+        "mobilesdk_app_id": "1:1066131766845:android:18dd3157a8049b849a3454",
         "android_client_info": {
           "package_name": "com.boilerplat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "827377285797-k33n3r44e8f0rd24chq228bpqg97epgi.apps.googleusercontent.com",
+          "client_id": "1066131766845-pd87r99c3ieajoteud0l6iuq6ol3e6m2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.boilerplat",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1066131766845-fv1om32r5bn3ihtdoml5b84hprs2k9b3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAFT65ApzkrpwCncvfzIYD3eSjnq2OBMlE"
+          "current_key": "AIzaSyBGvJAO3TFdxn0iNquFPKVpBieOpaVzuAs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "827377285797-k33n3r44e8f0rd24chq228bpqg97epgi.apps.googleusercontent.com",
+              "client_id": "1066131766845-fv1om32r5bn3ihtdoml5b84hprs2k9b3.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "827377285797-nik1f8m7ssbesbvuc87578482n2kpott.apps.googleusercontent.com",
+              "client_id": "1066131766845-2r4tpe8hh8dikss61m3q9khqceqomnha.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.boilerplat"
+                "bundle_id": "com.boilerplatreactnativeexpo"
               }
             }
           ]
