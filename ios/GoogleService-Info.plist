@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>827377285797-nik1f8m7ssbesbvuc87578482n2kpott.apps.googleusercontent.com</string>
+	<string>1066131766845-tng8v9ve5tvve4o7d4rnsocu4dlfg8l7.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.827377285797-nik1f8m7ssbesbvuc87578482n2kpott</string>
+	<string>com.googleusercontent.apps.1066131766845-tng8v9ve5tvve4o7d4rnsocu4dlfg8l7</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1066131766845-pd87r99c3ieajoteud0l6iuq6ol3e6m2.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCd3MNRlwD53eSOZ0fFs-69o1NwPr25yMg</string>
+	<string>AIzaSyDbqmEuzd--Eb3djzElbWme6rv5Lqi_S9s</string>
 	<key>GCM_SENDER_ID</key>
-	<string>827377285797</string>
+	<string>1066131766845</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.boilerplat</string>
 	<key>PROJECT_ID</key>
-	<string>boilerplat-bd7ff</string>
+	<string>boilerplat-react-native-expo</string>
 	<key>STORAGE_BUCKET</key>
-	<string>boilerplat-bd7ff.appspot.com</string>
+	<string>boilerplat-react-native-expo.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:827377285797:ios:6558710fb141ab56baeb4c</string>
+	<string>1:1066131766845:ios:b0063ae3aa5e30539a3454</string>
 </dict>
 </plist>
