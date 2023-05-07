@@ -1,21 +1,18 @@
 import React, { createContext, useEffect } from 'react'
 import { MMKV, useMMKVObject } from 'react-native-mmkv'
 import { useRouter, useSegments } from 'expo-router'
-import auth from '@react-native-firebase/auth'
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
-interface IUser {
-  displayName: string | null;
-  email: string | null;
-}
+type IUserData = FirebaseAuthTypes.User
 
 interface IAuthContextProvider {
   children: React.ReactNode;
 }
 
 interface IAuthContextData {
-  user: IUser | undefined;
-  login: (user: IUser) => void;
+  user: IUserData | undefined;
+  login: () => void;
   logout: () => void;
 }
 
@@ -23,7 +20,7 @@ export const AuthContext = createContext<IAuthContextData>({} as IAuthContextDat
 
 const storage = new MMKV()
 
-const useProtectedRoute = (user: IUser | undefined) => {
+const useProtectedRoute = (user: IUserData | undefined) => {
   const segments = useSegments()
   const router = useRouter()
 
@@ -39,11 +36,12 @@ const useProtectedRoute = (user: IUser | undefined) => {
 }
 
 export const AuthProvider: React.FC<IAuthContextProvider> = ({ children }) => {
-  const [user, setUser] = useMMKVObject<IUser>('user', undefined)
+  const [user, setUser] = useMMKVObject<IUserData>('user', undefined)
   useProtectedRoute(user)
   
-  const login = (data: IUser) => {
-    setUser(data)
+  const login = async () => {
+    const currentUser = auth().currentUser
+    setUser(currentUser || undefined)
   }
 
   const logout = async () => {
