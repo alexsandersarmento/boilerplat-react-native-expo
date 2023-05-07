@@ -16,6 +16,12 @@
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Give $(PRODUCT_NAME) permission to save photos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Give $(PRODUCT_NAME) permission to access your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Give $(PRODUCT_NAME) permission to use your microphone</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
 	<key>CFBundleSignature</key>

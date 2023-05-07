@@ -3,6 +3,7 @@
     "name": "Boilerplat",
     "slug": "Boilerplat",
     "version": "1.0.0",
+    "plugins": ["expo-image-picker"],
     "assetBundlePatterns": [
       "**/*"
     ],
