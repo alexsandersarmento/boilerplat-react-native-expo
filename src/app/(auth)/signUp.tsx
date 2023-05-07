@@ -3,14 +3,12 @@ import { Button, Center, VStack, Image, IconButton, HStack, useColorModeValue, u
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
-import auth from '@react-native-firebase/auth'
 import * as ImagePicker from 'expo-image-picker'
-import storage from '@react-native-firebase/storage'
-import { Platform } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import Form from '../../components/Form'
 import { useAuth } from '../../hooks/useAuth'
+import { createUser } from '../../services'
 
 const userSchema = z.object({
   name: z.string().nonempty({
@@ -26,12 +24,25 @@ const userSchema = z.object({
   }).min(6, {
     message: 'The password must be at least 6 characters',
   }).default(''),
+  confirmPassword: z.string().nonempty({
+    message: 'The confirm password is required',
+  }).min(6, {
+    message: 'The confirm password must be at least 6 characters',
+  }).default(''),
   profileAvatar: z.string().nonempty({
     message: 'The profile avatar is required',
   }).default(''),
+}).superRefine(({ confirmPassword, password }, ctx) => {
+  if (confirmPassword !== password) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'The passwords did not match',
+      path: ['confirmPassword'],
+    })
+  }
 })
 
-type TUserData = z.infer<typeof userSchema>
+export type TUserData = z.infer<typeof userSchema>
 
 export default function SignUp() {
   const userForm = useForm<TUserData>({
@@ -57,27 +68,10 @@ export default function SignUp() {
   }
 
   const handleCreate = async (data: TUserData) => {
-    try {
-      const { user } = await auth().createUserWithEmailAndPassword(data.email, data.password)
-    
-      const { profileAvatar } = data
-      const filename = profileAvatar.substring(profileAvatar.lastIndexOf('/') + 1)
-      const uploadUri = Platform.OS === 'ios' ? profileAvatar.replace('file://', '') : profileAvatar
-      const task = storage().ref(filename).putFile(uploadUri)
-      
-      await task
-
-      const url = await storage().ref(filename).getDownloadURL()
-
-      await user.updateProfile({
-        displayName: data.name,
-        photoURL: url,
-      })
-
-      login()
-    } catch (error) {
-      console.error(error)
-    }
+    return createUser({
+      data,
+      onSuccess: login,
+    })
   }
 
   return (
@@ -100,9 +94,9 @@ export default function SignUp() {
             <Form.ErrorMessage field='password' />
           </Form.Field>
           <Form.Field w='full'>
-            <Form.Label>Password</Form.Label>
-            <Form.Input name='password' type='password'/>
-            <Form.ErrorMessage field='password' />
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Input name='confirmPassword' type='password'/>
+            <Form.ErrorMessage field='confirmPassword' />
           </Form.Field>
           <Form.Field w='full'>
             <Form.Label>Profile Avatar</Form.Label>

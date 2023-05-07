@@ -25,6 +25,12 @@ const useProtectedRoute = (user: IUserData | undefined) => {
   const router = useRouter()
 
   useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '1066131766845-kcon415bejif60epslrb86bkbmgm2mg4.apps.googleusercontent.com',
+    })
+  }, [])
+
+  useEffect(() => {
     const inAuthGroup = segments[0] === '(auth)'
     
     if (!user && !inAuthGroup) {

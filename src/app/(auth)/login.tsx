@@ -1,15 +1,14 @@
-import React, { useState,  useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, Center, VStack, useColorModeValue } from 'native-base'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 import { useRouter } from 'expo-router'
-import auth from '@react-native-firebase/auth'
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 import GoogleSigninButton from '../../components/GoogleSigninButton'
 import Form from '../../components/Form'
 import { useAuth } from '../../hooks/useAuth'
+import { emailAndPasswordlogin, googleLogin } from '../../services'
 
 const loginSchema = z.object({
   email: z.string().email({
@@ -24,7 +23,7 @@ const loginSchema = z.object({
   }).default(''),
 })
 
-type TLoginData = z.infer<typeof loginSchema>
+export type TLoginData = z.infer<typeof loginSchema>
 
 export default function Login() {
   const [isGoogleSigninLoading, setIsGoogleSigninLoading] = useState(false)
@@ -40,37 +39,24 @@ export default function Login() {
   const { handleSubmit, formState: { isSubmitting } } = loginForm
 
   const handleLogin = async (data: TLoginData) => {
-    try {
-      const { user } = await auth().signInWithEmailAndPassword(data.email, data.password)
-      login(user)
-    } catch (error) {
-      console.error(error)
-    }
+    return emailAndPasswordlogin({
+      data,
+      onSuccess: login,
+    })
   }
 
   const handleLoginWithGoogle = async () => {
     try {
       setIsGoogleSigninLoading(true)
-
-      await GoogleSignin.hasPlayServices()
-      const { idToken } = await GoogleSignin.signIn()
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken)
-      const { user } = await auth().signInWithCredential(googleCredential)
-
-      login(user)
+      await googleLogin()
+      login()
     } catch (error) {
       console.error(error)
     } finally {
       setIsGoogleSigninLoading(false)
     }
   }
-
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId: '1066131766845-kcon415bejif60epslrb86bkbmgm2mg4.apps.googleusercontent.com',
-    })
-  }, [])
-
+ 
   return (
     <Center flex={1} bg={useColorModeValue('gray.50', 'gray.800')}>
       <VStack space={2} w='90%'>
