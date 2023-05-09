@@ -1,8 +1,10 @@
 import React, { createContext, useEffect } from 'react'
 import { MMKV, useMMKVObject } from 'react-native-mmkv'
 import { useRouter, useSegments } from 'expo-router'
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+
+import { firebase } from '../services/firebase'
 
 type IUserData = FirebaseAuthTypes.User
 
@@ -46,8 +48,17 @@ export const AuthProvider: React.FC<IAuthContextProvider> = ({ children }) => {
   useProtectedRoute(user)
   
   const login = async () => {
-    const currentUser = auth().currentUser
+    const currentUser = firebase.auth().currentUser
+
+    if (!currentUser) return
+
     setUser(currentUser || undefined)
+
+    const usersRef = firebase.database().ref('users')
+    const userRef = usersRef.child(currentUser?.uid || '0')
+
+    userRef.update({ status: 'online' })
+
   }
 
   const logout = async () => {
@@ -56,7 +67,9 @@ export const AuthProvider: React.FC<IAuthContextProvider> = ({ children }) => {
       GoogleSignin.signOut()
     }
     
-    auth().signOut().then(() => {
+    firebase.auth().signOut().then(() => {
+      const userRef = firebase.database().ref(`users/${user?.uid}`)
+      userRef.update({ status: 'offline' })
       storage.delete('user')
     }).catch(error => {
       console.error(error)
