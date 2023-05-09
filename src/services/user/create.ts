@@ -29,9 +29,17 @@ const createUser = async ({
       photoURL: url,
     })
 
+    const userRef = firebase.database().ref('users/' + user.uid)
+
+    await userRef.set({
+      name: data.name,
+      email: data.email,
+      photoURL: url,
+    })
+
     onSuccess()
   } catch (error) {
-    console.error(error)
+    await firebase.auth().currentUser?.delete()
   }
 }
 
