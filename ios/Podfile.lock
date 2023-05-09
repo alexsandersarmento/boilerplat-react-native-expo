@@ -651,6 +651,9 @@ PODS:
     - FirebaseAuth (~> 10.7.0)
   - Firebase/CoreOnly (10.7.0):
     - FirebaseCore (= 10.7.0)
+  - Firebase/Database (10.7.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 10.7.0)
   - Firebase/Firestore (10.7.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.7.0)
@@ -672,6 +675,9 @@ PODS:
     - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.9.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseDatabase (10.7.0):
+    - FirebaseCore (~> 10.0)
+    - leveldb-library (~> 1.22)
   - FirebaseFirestore (10.7.0):
     - abseil/algorithm (~> 1.20211102.0)
     - abseil/base (~> 1.20211102.0)
@@ -1102,6 +1108,10 @@ PODS:
     - Firebase/Auth (= 10.7.0)
     - React-Core
     - RNFBApp
+  - RNFBDatabase (17.4.3):
+    - Firebase/Database (= 10.7.0)
+    - React-Core
+    - RNFBApp
   - RNFBFirestore (17.4.3):
     - Firebase/Firestore (= 10.7.0)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -1170,6 +1180,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
+  - "RNFBDatabase (from `../node_modules/@react-native-firebase/database`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
@@ -1189,6 +1200,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
+    - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseStorage
     - fmt
@@ -1300,6 +1312,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBAuth:
     :path: "../node_modules/@react-native-firebase/auth"
+  RNFBDatabase:
+    :path: "../node_modules/@react-native-firebase/database"
   RNFBFirestore:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNFBStorage:
@@ -1339,6 +1353,7 @@ SPEC CHECKSUMS:
   FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
   FirebaseCoreExtension: d3e9bba2930a8033042112397cd9f006a1bb203d
   FirebaseCoreInternal: d2b4acb827908e72eca47a9fd896767c3053921e
+  FirebaseDatabase: 06195bac336b5e4c893ec04a111631a4cdb00178
   FirebaseFirestore: 3963a6edd1c84b4748dab3e2c62624a29d03eca1
   FirebaseStorage: 4841efa304543e1f9e4ca116c559c7a1ea2a9d0f
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
@@ -1386,6 +1401,7 @@ SPEC CHECKSUMS:
   ReactCommon: 8a45d9a36b0672f3c7b911ee8a1d4f23ef580fa9
   RNFBApp: 922564a99c97a8cab366d5a918f9fecff6b563d5
   RNFBAuth: 55fd07310abde3fa2f3a6568f6d3ef590383d241
+  RNFBDatabase: d95bb192261afe3efa847b9a12029fc364c094a2
   RNFBFirestore: 9c982af765b64f2566cbeda3fb1024ddf5d905b4
   RNFBStorage: 90a78a04fb513d5d0643dd43a6c137cd545b7c4c
   RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
