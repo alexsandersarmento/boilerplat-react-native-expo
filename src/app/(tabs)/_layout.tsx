@@ -7,6 +7,14 @@ export default function Layout() {
   const { colors } = useTheme()
   const { colorMode, toggleColorMode } = useColorMode()
 
+  const getIconColor = (focused: boolean) => {
+    if (focused) {
+      return useColorModeValue(colors.gray[800], colors.muted[50])
+    } else {
+      return colors.gray[400]
+    }
+  }
+
   return (
     <Tabs
       screenOptions={{
@@ -28,7 +36,7 @@ export default function Layout() {
         },
       }}
     >
-      <Tabs.Screen 
+      <Tabs.Screen
         name="index"
         options={{
           headerTitle: () => null,
@@ -43,10 +51,26 @@ export default function Layout() {
               onToggle={toggleColorMode}
             />
           ),
-          tabBarIcon: ({ size }) => (
+          tabBarIcon: ({ size, focused }) => (
             <MaterialCommunityIcons 
               name="home"
-              color={useColorModeValue(colors.gray[800], colors.muted[50])}
+              color={getIconColor(focused)}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="inbox"
+        options={{
+          headerShown: false,
+          tabBarLabelStyle: {
+            color: useColorModeValue(colors.gray[800], colors.muted[50]),
+          },
+          tabBarIcon: ({ size, focused }) => (
+            <MaterialCommunityIcons
+              name="chat"
+              color={getIconColor(focused)}
               size={size}
             />
           ),
