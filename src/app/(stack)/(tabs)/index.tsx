@@ -1,9 +1,9 @@
 import React from 'react'
 import { Center, VStack, Text, Button, Image, useColorModeValue } from 'native-base'
 
-import { useAuth } from '../../hooks/useAuth'
+import { useAuth } from '../../../hooks/useAuth'
 
-export default function Index() {
+export default function Home() {
   const { logout, user } = useAuth()
 
   return (

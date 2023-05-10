@@ -39,18 +39,11 @@ export default function Layout() {
       <Tabs.Screen
         name="index"
         options={{
-          headerTitle: () => null,
+          title: 'Home',
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
             color: useColorModeValue(colors.gray[800], colors.muted[50]),
           },
-          headerRight: () => (
-            <Switch
-              isChecked={colorMode === 'dark'}
-              size='sm'
-              onToggle={toggleColorMode}
-            />
-          ),
           tabBarIcon: ({ size, focused }) => (
             <MaterialCommunityIcons 
               name="home"
@@ -63,13 +56,31 @@ export default function Layout() {
       <Tabs.Screen
         name="inbox"
         options={{
-          headerShown: false,
+          title: 'Inbox',
+          tabBarLabel: 'Inbox',
           tabBarLabelStyle: {
             color: useColorModeValue(colors.gray[800], colors.muted[50]),
           },
           tabBarIcon: ({ size, focused }) => (
             <MaterialCommunityIcons
               name="chat"
+              color={getIconColor(focused)}
+              size={size}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="lobby"
+        options={{
+          title: 'Lobby',
+          tabBarLabel: 'Lobby',
+          tabBarLabelStyle: {
+            color: useColorModeValue(colors.gray[800], colors.muted[50]),
+          },
+          tabBarIcon: ({ size, focused }) => (
+            <MaterialCommunityIcons
+              name="chat-plus"
               color={getIconColor(focused)}
               size={size}
             />
