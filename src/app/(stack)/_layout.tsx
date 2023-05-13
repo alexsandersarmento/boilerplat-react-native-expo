@@ -1,25 +1,9 @@
 import React from 'react'
 import { Stack } from 'expo-router'
-import { Box, Image, Text } from 'native-base'
-import { useSearchParams } from 'expo-router'
+
+import ChatHeader from '../../components/ChatHeader'
 
 export default function RootLayout() {
-  const params = useSearchParams()
-
-  const HeaderTitleWithAvatar = () => (
-    <Box flexDirection='row' alignItems='center'>
-      <Image
-        source={{ uri: decodeURIComponent(params.receiverAvatar as string) }}
-        alt='Avatar'
-        size={8}
-        borderRadius='full'
-      />
-      <Text ml={2} fontSize={16} fontWeight='bold'>
-        {params.receiverName}
-      </Text>
-    </Box>
-  )
-
   return (
     <Stack
       initialRouteName='(tabs)'
@@ -34,7 +18,7 @@ export default function RootLayout() {
         name="chat"
         options={{
           headerShown: true,
-          headerTitle: HeaderTitleWithAvatar,
+          header: () => <ChatHeader />,
         }}
       />
     </Stack>

@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react'
-import { ScrollView, VStack, HStack, Pressable, Text, Image, useColorModeValue, Heading } from 'native-base'
-import { useRouter } from 'expo-router'
+import React, { useState, useEffect, useCallback } from 'react'
+import { ScrollView, VStack, HStack, Pressable, Text, Image, useColorModeValue, Heading, Box } from 'native-base'
+import { useRouter, useNavigation } from 'expo-router'
 
 import { getUserInbox } from '../../../services'
 import { useAuth } from '../../../hooks/useAuth'
+import { firebase } from '../../../services/firebase'
 
-interface IInboxMessage {
+export interface IInboxMessage {
+  chatId: string;
   senderId: string;
   receiverId: string;
   message: string;
+  read: boolean;
   timestamp: number;
-  receiver: {
-    email: string;
-    name: string;
-    photoURL: string;
-    status: string;
-  }
-  sender: {
+  otherUser: {
+    id: string;
     email: string;
     name: string;
     photoURL: string;
@@ -28,15 +26,29 @@ export default function Inbox() {
   const [inboxMessages, setInboxMessages] = useState<IInboxMessage[] | []>([])
 
   const { user } = useAuth()
-  const navigation = useRouter()
+  const router = useRouter()
+  const navigation = useNavigation()
+  
+  const isMessageRead = (message: IInboxMessage) => {
+    if (message.senderId === user?.uid) return true
+
+    return message.read
+  }
+  
+  const fetchInbox = useCallback(async () => {
+    const inbox = await getUserInbox(user?.uid as string)
+    setInboxMessages(inbox)
+  }, [])
 
   useEffect(() => {
-    const fetchInbox = async () => {
-      const inbox = await getUserInbox(user?.uid as string)
-      setInboxMessages(inbox)
-    }
+    navigation.addListener('focus', fetchInbox)
 
-    fetchInbox()
+    const inboxRef = firebase.database().ref(`inbox/${user?.uid}`)
+    inboxRef.on('value', fetchInbox)
+  
+    return () => {
+      inboxRef.off('value', fetchInbox)
+    }
   }, [])
 
   return (
@@ -49,13 +61,15 @@ export default function Inbox() {
         {inboxMessages.map((inboxMessage, index) => (
           <Pressable
             key={index}
-            onPress={() => navigation.push({
+            onPress={() => router.push({
               pathname: 'chat',
               params: {
+                chatId: inboxMessage.chatId,
                 currentUserId: user?.uid,
-                receiverId: inboxMessage.receiverId,
-                receiverName: inboxMessage.receiver.name,
-                receiverAvatar: encodeURIComponent(inboxMessage.receiver.photoURL),
+                otherUserId: inboxMessage.otherUser.id,
+                otherUserName: inboxMessage.otherUser.name,
+                otherUserAvatar: encodeURIComponent(inboxMessage.otherUser.photoURL),
+                otherUserStatus: inboxMessage.otherUser.status,
               },
             })}
             width='full'
@@ -70,17 +84,32 @@ export default function Inbox() {
               alignItems='center'
             >
               <Image
-                source={{ uri: inboxMessage.receiver.photoURL }}
+                source={{ uri: inboxMessage.otherUser.photoURL }}
                 alt='Avatar'
                 size={12}
                 borderRadius='full'
               />
               <VStack flex={1} space={2}>
                 <HStack justifyContent='space-between'>
-                  <Heading fontSize={16}>{inboxMessage.receiver.name}</Heading>
-                  <Text fontSize={12}>{inboxMessage.timestamp}</Text>
+                  <Heading fontSize={16}>{inboxMessage.otherUser.name}</Heading>
+                  <Text fontSize={12}>{
+                    new Date(inboxMessage.timestamp).toLocaleDateString('pt-BR', {
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: true,
+                    })
+                  }</Text>
                 </HStack>
-                <Text isTruncated>{inboxMessage.message}</Text>
+                <HStack justifyContent='space-between'>
+                  <Text isTruncated>{inboxMessage.message}</Text>
+                  {!isMessageRead(inboxMessage) && (
+                    <Box 
+                      bg='primary.500'
+                      borderRadius='full'
+                      size={2}
+                    />
+                  )}
+                </HStack>
               </VStack>
             </HStack>
           </Pressable>

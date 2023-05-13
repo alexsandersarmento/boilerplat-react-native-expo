@@ -46,11 +46,12 @@ export default function Lobby() {
     setAvailableUsers(processedUsers.filter((processedUser) => processedUser.id !== user?.uid))
   }
 
+  const fetchUsers = async () => {
+    const users = await getUsers()
+    processUsersData(users)
+  }
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      const users = await getUsers()
-      processUsersData(users)
-    }
     fetchUsers()
   }, [])
 
@@ -68,9 +69,9 @@ export default function Lobby() {
               pathname: 'chat',
               params: {
                 currentUserId: user?.uid,
-                receiverId: availableUser.id,
-                receiverName: availableUser.name,
-                receiverAvatar: encodeURIComponent(availableUser.photoURL),
+                otherUserId: availableUser.id,
+                otherUserName: availableUser.name,
+                otherUserAvatar: encodeURIComponent(availableUser.photoURL),
               },
             })}
             width='full'

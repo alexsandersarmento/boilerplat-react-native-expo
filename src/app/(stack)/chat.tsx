@@ -1,66 +1,89 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { GiftedChat, IChatMessage, Bubble, BubbleProps } from 'react-native-gifted-chat'
-import { useColorModeValue, useTheme } from 'native-base'
-import { useSearchParams } from 'expo-router'
+import { Box, Pressable, Icon, useColorModeValue, useTheme } from 'native-base'
+import { useSearchParams, useRouter } from 'expo-router'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import { getChatMessages, sendMessage } from '../../services'
+import { firebase } from '../../services/firebase'
+import { getChatMessages, sendMessage, markMessageAsRead } from '../../services'
 
 interface IMessage {
+  id: string
   senderId: string
   receiverId: string
   message: string
   timestamp: number
+  read: boolean
 }
 
 export default function Chat() {
   const [messages, setMessages] = useState<IChatMessage[]>([])
+
   const { colors } = useTheme()
-  const { currentUserId, receiverId } = useSearchParams()
+  const { currentUserId, otherUserId, chatId } = useSearchParams()
+  const router = useRouter()
 
   const formatMessages = (chatMessages: IMessage[]) => {
-    const formattedMessages: IChatMessage[] = chatMessages.map((message) => {
+    const formattedMessages = chatMessages.map((message) => {
       return {
-        _id: message.timestamp.toString(),
+        _id: message.id,
         text: message.message,
-        createdAt: new Date(message.timestamp),
+        createdAt: message.timestamp,
         user: {
           _id: message.senderId,
+          name: message.senderId,
         },
+        read: message.read,
       }
     })
     return formattedMessages
   }
 
+  const fetchChatMessages = async () => {
+    const chatMessages = await getChatMessages({
+      chatId: chatId as string,
+      currentUserId: currentUserId as string,
+      receiverId: otherUserId as string,
+    })
+    if (!chatMessages) return
+
+    const formattedMessages = formatMessages(chatMessages)
+    setMessages(formattedMessages.sort((a, b) => Number(b.createdAt) - Number(a.createdAt)))
+
+    const unreadMessages = formattedMessages.filter(message => message.user._id !== currentUserId && !message.read)
+    unreadMessages.forEach(message => markMessageAsRead({
+      userId: currentUserId as string,
+      chatId: chatId as string,
+      messageId: message._id,
+    }))
+  }
+
   useEffect(() => {
-    const fetchChatMessages = async () => {
-      const chatMessages = await getChatMessages({
-        senderId: currentUserId as string,
-        receiverId: receiverId as string,
-      })
+    const inboxRef = firebase.database().ref(`chats/${chatId}/messages`)
+    inboxRef.orderByChild('timestamp').limitToLast(1).on('child_added', fetchChatMessages)
+    const usersRef = firebase.database().ref(`users/${otherUserId}`)
+    usersRef.on('child_changed', snapshot => {
+      if (snapshot.key === 'status') {
+        router.setParams({
+          otherUserStatus: snapshot.val(),
+        })
+      }
+    })
 
-      if (!chatMessages) return
-
-      const formattedMessages = formatMessages(chatMessages)
-      
-      setMessages(formattedMessages.sort((a, b) => Number(b.createdAt) - Number(a.createdAt)))
+    return () => {
+      inboxRef.off('child_added', fetchChatMessages)
     }
+  }, [])
 
-    if (currentUserId && receiverId) {
-      fetchChatMessages()
-    }
-  }, [currentUserId, receiverId])
-
-  const onSend = useCallback(async (newMessages: IChatMessage[] = []) => {
+  const onSend = async (newMessages: IChatMessage[] = []) => {
     const newMessage = newMessages[0]
 
     await sendMessage({
       senderId: currentUserId as string,
-      receiverId: receiverId as string,
+      receiverId: otherUserId as string,
       message: newMessage.text,
     })
-
-    setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
-  }, [currentUserId, receiverId])
+  }
 
   const CustomBubble = (props: BubbleProps<IChatMessage>) => {
     return (
@@ -90,12 +113,31 @@ export default function Chat() {
     <GiftedChat
       messages={messages}
       onSend={onSend}
-      renderBubble={props => <CustomBubble {...props} />}
       timeFormat='HH:mm'
       dateFormat='ll'
+      showAvatarForEveryMessage={true}
+      minComposerHeight={80}
+      isLoadingEarlier
       renderAvatar={() => null}
+      renderBubble={props => <CustomBubble {...props} />}
+      renderSend={() => {
+        return (
+          <Pressable
+            p={2}
+            onPress={() => {}}
+            bg='red.100'
+          >
+            <Icon
+              as={<MaterialCommunityIcons name='send' />}
+              size='sm'
+              color={colors.primary[500]}
+            />
+          </Pressable>
+        )
+      }}
       messagesContainerStyle={{
-        backgroundColor: useColorModeValue(colors.gray[50], colors.gray[800]),
+        backgroundColor: useColorModeValue(colors.muted[50], colors.gray[800]),
+        paddingBottom: 50,
       }}
       user={{
         _id: currentUserId as string,
