@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { GiftedChat, IChatMessage, Bubble, BubbleProps } from 'react-native-gifted-chat'
-import { Box, Pressable, Icon, useColorModeValue, useTheme } from 'native-base'
+import { GiftedChat, IChatMessage, Bubble, BubbleProps, Send } from 'react-native-gifted-chat'
+import { Box, Icon, useColorModeValue, useTheme } from 'native-base'
 import { useSearchParams, useRouter } from 'expo-router'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -120,19 +120,22 @@ export default function Chat() {
       isLoadingEarlier
       renderAvatar={() => null}
       renderBubble={props => <CustomBubble {...props} />}
-      renderSend={() => {
+      renderSend={(props) => {
         return (
-          <Pressable
-            p={2}
-            onPress={() => {}}
-            bg='red.100'
-          >
-            <Icon
-              as={<MaterialCommunityIcons name='send' />}
-              size='sm'
-              color={colors.primary[500]}
-            />
-          </Pressable>
+          <Box alignSelf='flex-start' >
+            <Send
+              {...props}
+              containerStyle={{
+                justifyContent: 'center',
+              }}
+            >
+              <Icon
+                as={<MaterialCommunityIcons name='send' />}
+                size={8}
+                color={colors.primary[500]}
+              />
+            </Send>
+          </Box>
         )
       }}
       messagesContainerStyle={{
