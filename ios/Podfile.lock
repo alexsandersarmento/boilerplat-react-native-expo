@@ -621,7 +621,7 @@ PODS:
   - EXImageLoader (4.1.1):
     - ExpoModulesCore
     - React-Core
-  - Expo (48.0.15):
+  - Expo (48.0.16):
     - ExpoModulesCore
   - ExpoAdapterGoogleSignIn (9.0.2):
     - ExpoModulesCore
@@ -631,7 +631,7 @@ PODS:
     - ExpoModulesCore
   - ExpoKeepAwake (12.0.1):
     - ExpoModulesCore
-  - ExpoModulesCore (1.2.6):
+  - ExpoModulesCore (1.2.7):
     - React-Core
     - React-RCTAppDelegate
     - ReactCommon/turbomodule/core
@@ -1101,29 +1101,58 @@ PODS:
     - React-jsi (= 0.71.7)
     - React-logger (= 0.71.7)
     - React-perflogger (= 0.71.7)
-  - RNFBApp (17.4.3):
+  - RNFBApp (17.5.0):
     - Firebase/CoreOnly (= 10.7.0)
     - React-Core
-  - RNFBAuth (17.4.3):
+  - RNFBAuth (17.5.0):
     - Firebase/Auth (= 10.7.0)
     - React-Core
     - RNFBApp
-  - RNFBDatabase (17.4.3):
+  - RNFBDatabase (17.5.0):
     - Firebase/Database (= 10.7.0)
     - React-Core
     - RNFBApp
-  - RNFBFirestore (17.4.3):
+  - RNFBFirestore (17.5.0):
     - Firebase/Firestore (= 10.7.0)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - React-Core
     - RNFBApp
-  - RNFBStorage (17.4.3):
+  - RNFBStorage (17.5.0):
     - Firebase/Storage (= 10.7.0)
     - React-Core
     - RNFBApp
+  - RNGestureHandler (2.10.0):
+    - React-Core
   - RNGoogleSignin (9.0.2):
     - GoogleSignIn (~> 6.2)
     - React-Core
+  - RNReanimated (2.14.4):
+    - DoubleConversion
+    - FBLazyVector
+    - FBReactNativeSpec
+    - glog
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-Core/DevSupport
+    - React-Core/RCTWebSocket
+    - React-CoreModules
+    - React-cxxreact
+    - React-jsi
+    - React-jsiexecutor
+    - React-jsinspector
+    - React-RCTActionSheet
+    - React-RCTAnimation
+    - React-RCTBlob
+    - React-RCTImage
+    - React-RCTLinking
+    - React-RCTNetwork
+    - React-RCTSettings
+    - React-RCTText
+    - ReactCommon/turbomodule/core
+    - Yoga
   - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
@@ -1183,7 +1212,9 @@ DEPENDENCIES:
   - "RNFBDatabase (from `../node_modules/@react-native-firebase/database`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - "RNFBStorage (from `../node_modules/@react-native-firebase/storage`)"
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
+  - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1318,8 +1349,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNFBStorage:
     :path: "../node_modules/@react-native-firebase/storage"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
   RNGoogleSignin:
     :path: "../node_modules/@react-native-google-signin/google-signin"
+  RNReanimated:
+    :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -1338,11 +1373,11 @@ SPEC CHECKSUMS:
   EXFileSystem: 844e86ca9b5375486ecc4ef06d3838d5597d895d
   EXFont: 6ea3800df746be7233208d80fe379b8ed74f4272
   EXImageLoader: fd053169a8ee932dd83bf1fe5487a50c26d27c2b
-  Expo: 62bba165c9cd30a2983176e7d975ae688b6334b6
+  Expo: b1457fbd549c00d17b62c402bc98c8229aace6d8
   ExpoAdapterGoogleSignIn: 98a113d9c0ed1ce7cf6259f0907d3f93209b0d7f
   ExpoImagePicker: 270dea232b3a072d981dd564e2cafc63a864edb1
   ExpoKeepAwake: 69f5f627670d62318410392d03e0b5db0f85759a
-  ExpoModulesCore: 6e0259511f4c4341b6b8357db393624df2280828
+  ExpoModulesCore: 653958063a301098b541ae4dfed1ac0b98db607b
   EXSplashScreen: 0e0a9ba0cf7553094e93213099bd7b42e6e237e9
   FBLazyVector: a89a0525bc7ca174675045c2b492b5280d5a2470
   FBReactNativeSpec: 7714e6bc1e9ea23df6c4cb42f0b2fd9c6a3a559c
@@ -1399,12 +1434,14 @@ SPEC CHECKSUMS:
   React-RCTVibration: 08f132cad9896458776f37c112e71d60aef1c6ae
   React-runtimeexecutor: c5c89f8f543842dd864b63ded1b0bbb9c9445328
   ReactCommon: 8a45d9a36b0672f3c7b911ee8a1d4f23ef580fa9
-  RNFBApp: 922564a99c97a8cab366d5a918f9fecff6b563d5
-  RNFBAuth: 55fd07310abde3fa2f3a6568f6d3ef590383d241
-  RNFBDatabase: d95bb192261afe3efa847b9a12029fc364c094a2
-  RNFBFirestore: 9c982af765b64f2566cbeda3fb1024ddf5d905b4
-  RNFBStorage: 90a78a04fb513d5d0643dd43a6c137cd545b7c4c
+  RNFBApp: d59efa0872fff4e27de03cca3c528c203a436ae5
+  RNFBAuth: 54e598bb1358a0cf6c0a187f43161cd1bde90455
+  RNFBDatabase: 80c4a872443796fff15e75f476e0c4b793a9cede
+  RNFBFirestore: 4edfb28f95cb461ef8423c6ae4354dfe98186586
+  RNFBStorage: b9daf1fcc51e6de5ed3781d36a2a795e90a9489d
+  RNGestureHandler: e145476da655f3dbc48ef2f0a08cf7a34338c02b
   RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
+  RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: 07dbd870b0dcdecc99b3a202fa37c8ca163caec2
   Yoga: d56980c8914db0b51692f55533409e844b66133c

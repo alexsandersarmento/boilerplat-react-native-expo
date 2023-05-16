@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler'
 import React from 'react'
 import 'expo-router/entry'
 import { registerRootComponent } from 'expo'
