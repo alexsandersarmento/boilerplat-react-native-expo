@@ -1,5 +1,5 @@
 import { firebase } from '../firebase'
-import { IInboxMessage } from '../../app/(stack)/(tabs)/inbox'
+import { IInboxMessage } from '../../app/(drawer)/(stack)/(tabs)/inbox'
 
 const getUserInbox = async (userId: string) => {
   try {
