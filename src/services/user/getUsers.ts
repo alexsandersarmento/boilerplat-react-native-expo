@@ -1,4 +1,4 @@
-import { firebase } from '../firebase'
+import firebase from '../firebase'
 
 const getUsers = async () => {
   const users = await firebase.database().ref('users').once('value')

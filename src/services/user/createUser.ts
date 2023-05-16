@@ -1,7 +1,7 @@
 import { Platform } from 'react-native'
 
 import type { TUserData } from '../../app/(auth)/signUp'
-import { firebase } from '../firebase'
+import firebase  from '../firebase'
 
 interface ICreateUser {
   data: TUserData

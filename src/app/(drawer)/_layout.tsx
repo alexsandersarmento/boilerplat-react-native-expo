@@ -1,8 +1,7 @@
 import React from 'react'
 import { Drawer } from 'expo-router/drawer'
 
-import CustomDrawerContent from '../../components/CustomDrawerContent'
-import DrawerHeader from '../../components/DrawerHeader'
+import { CustomDrawerContent, DrawerHeader } from '@components'
 
 export default function RootLayout() {
   return (

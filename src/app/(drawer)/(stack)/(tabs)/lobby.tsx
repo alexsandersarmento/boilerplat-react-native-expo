@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { ScrollView, VStack, HStack, Pressable, Image, useColorModeValue, Heading } from 'native-base'
 import { useRouter } from 'expo-router'
 
-import { useAuth } from '../../../../hooks/useAuth'
-import { getUsers } from '../../../../services'
+import { useAuth } from '@hooks'
+import { getUsers } from '@services'
 
 interface IUserData {
   email: string

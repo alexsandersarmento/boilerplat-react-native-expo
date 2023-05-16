@@ -1,5 +1,5 @@
 import type { TLoginData } from '../../app/(auth)/login'
-import { firebase } from '../firebase'
+import firebase from '../firebase'
 
 interface IEmailAndPasswordLogin {
   data: TLoginData

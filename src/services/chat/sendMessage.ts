@@ -1,5 +1,6 @@
-import { firebase } from '../firebase'
-import { generateChatId } from '../../utils'
+import firebase from '../firebase'
+
+import { generateChatId } from '@utils'
 
 interface IMessage {
   senderId: string

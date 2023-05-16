@@ -2,9 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { ScrollView, VStack, HStack, Pressable, Text, Image, useColorModeValue, Heading, Box } from 'native-base'
 import { useRouter, useNavigation } from 'expo-router'
 
-import { getUserInbox } from '../../../../services'
-import { useAuth } from '../../../../hooks/useAuth'
-import { firebase } from '../../../../services/firebase'
+import { firebase } from '@services'
+import { getUserInbox } from '@services'
+import { useAuth } from '@hooks'
 
 export interface IInboxMessage {
   chatId: string;

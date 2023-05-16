@@ -4,7 +4,7 @@ import { useRouter, useSegments } from 'expo-router'
 import { FirebaseAuthTypes } from '@react-native-firebase/auth'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
-import { firebase } from '../services/firebase'
+import { firebase } from '@services'
 
 type IUserData = FirebaseAuthTypes.User
 

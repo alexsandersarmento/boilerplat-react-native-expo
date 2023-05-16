@@ -5,10 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, FormProvider } from 'react-hook-form'
 import { useRouter } from 'expo-router'
 
-import GoogleSigninButton from '../../components/GoogleSigninButton'
-import Form from '../../components/Form'
-import { useAuth } from '../../hooks/useAuth'
-import { emailAndPasswordlogin, googleLogin } from '../../services'
+import { GoogleSigninButton, Form } from '@components'
+import { emailAndPasswordlogin, googleLogin } from '@services'
+import { useAuth } from '@hooks'
 
 const loginSchema = z.object({
   email: z.string().email({

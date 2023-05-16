@@ -6,9 +6,9 @@ import { useForm, FormProvider } from 'react-hook-form'
 import * as ImagePicker from 'expo-image-picker'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import Form from '../../components/Form'
-import { useAuth } from '../../hooks/useAuth'
-import { createUser } from '../../services'
+import { Form } from '@components'
+import { useAuth } from '@hooks'
+import { createUser } from '@services'
 
 const userSchema = z.object({
   name: z.string().nonempty({

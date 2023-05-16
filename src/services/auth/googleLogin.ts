@@ -1,6 +1,6 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
-import { firebase } from '../firebase'
+import firebase from '../firebase'
 
 const googleLogin = async () => {
   await GoogleSignin.hasPlayServices()

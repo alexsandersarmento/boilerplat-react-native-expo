@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useNavigation } from 'expo-router'
 import { DrawerActions } from '@react-navigation/routers'
 
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '@hooks'
 
 export default function TabsHeader() {
   const { colors } = useTheme()

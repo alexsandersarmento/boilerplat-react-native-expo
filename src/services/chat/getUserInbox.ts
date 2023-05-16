@@ -1,4 +1,4 @@
-import { firebase } from '../firebase'
+import firebase from '../firebase'
 import { IInboxMessage } from '../../app/(drawer)/(stack)/(tabs)/inbox'
 
 const getUserInbox = async (userId: string) => {

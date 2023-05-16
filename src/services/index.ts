@@ -1,3 +1,4 @@
+export { default as firebase } from './firebase'
 export { default as createUser } from './user/createUser'
 export { default as getUsers } from './user/getUsers'
 export { default as emailAndPasswordlogin } from './auth/emailAndPasswordlogin'

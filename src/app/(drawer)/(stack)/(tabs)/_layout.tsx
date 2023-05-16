@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { useColorModeValue, useTheme } from 'native-base'
 
-import TabsHeader from '../../../../components/TabsHeader'
+import { TabsHeader } from '@components'
 
 export default function Layout() {
   const { colors } = useTheme()

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack } from 'expo-router'
 
-import ChatHeader from '../../../components/ChatHeader'
+import { ChatHeader } from '@components'
 
 export default function RootLayout() {
   return (

@@ -4,9 +4,9 @@ import { Box, Icon, useColorModeValue, useTheme } from 'native-base'
 import { useSearchParams, useRouter } from 'expo-router'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import { firebase } from '../../../services/firebase'
-import { getChatMessages, sendMessage, markMessageAsRead } from '../../../services'
-import { generateChatId } from '../../../utils'
+import { firebase } from '@services'
+import { getChatMessages, sendMessage, markMessageAsRead } from '@services'
+import { generateChatId } from '@utils'
 
 interface IMessage {
   id: string
