@@ -43,5 +43,10 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-unused-expressions': ['off']
+  },
+  settings: {
+    "import/resolver": {
+      "babel-module": {}
+    }
   }
 }
