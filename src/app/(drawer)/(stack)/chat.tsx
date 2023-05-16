@@ -4,8 +4,9 @@ import { Box, Icon, useColorModeValue, useTheme } from 'native-base'
 import { useSearchParams, useRouter } from 'expo-router'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
-import { firebase } from '../../services/firebase'
-import { getChatMessages, sendMessage, markMessageAsRead } from '../../services'
+import { firebase } from '../../../services/firebase'
+import { getChatMessages, sendMessage, markMessageAsRead } from '../../../services'
+import { generateChatId } from '../../../utils'
 
 interface IMessage {
   id: string
@@ -49,7 +50,6 @@ export default function Chat() {
 
     const formattedMessages = formatMessages(chatMessages)
     setMessages(formattedMessages.sort((a, b) => Number(b.createdAt) - Number(a.createdAt)))
-
     const unreadMessages = formattedMessages.filter(message => message.user._id !== currentUserId && !message.read)
     unreadMessages.forEach(message => markMessageAsRead({
       userId: currentUserId as string,
@@ -59,7 +59,15 @@ export default function Chat() {
   }
 
   useEffect(() => {
-    const inboxRef = firebase.database().ref(`chats/${chatId}/messages`)
+    let currentChatId = chatId as string
+    if (!currentChatId) {
+      currentChatId = generateChatId({
+        userId1: currentUserId as string,
+        userId2: otherUserId as string,
+      })
+    }
+
+    const inboxRef = firebase.database().ref(`chats/${currentChatId}/messages`)
     inboxRef.orderByChild('timestamp').limitToLast(1).on('child_added', fetchChatMessages)
     const usersRef = firebase.database().ref(`users/${otherUserId}`)
     usersRef.on('child_changed', snapshot => {
