@@ -9,7 +9,9 @@
           "@components": "./src/components",
           "@services": "./src/services",
           "@hooks": "./src/hooks",
-          "@utils": "./src/utils"
+          "@utils": "./src/utils",
+          "@store": "./src/store",
+          "@reducers": "./src/store/reducers",
         },
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
