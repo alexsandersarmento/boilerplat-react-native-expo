@@ -58,7 +58,6 @@ export const AuthProvider: React.FC<IAuthContextProvider> = ({ children }) => {
     const userRef = usersRef.child(currentUser?.uid || '0')
 
     userRef.update({ status: 'online' })
-
   }
 
   const logout = async () => {

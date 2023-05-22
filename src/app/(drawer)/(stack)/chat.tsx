@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { GiftedChat, IChatMessage, Bubble, BubbleProps, Send } from 'react-native-gifted-chat'
-import { Box, Icon, useColorModeValue, useTheme } from 'native-base'
-import { useSearchParams, useRouter } from 'expo-router'
+import { Box, Icon, Center, useColorModeValue, useTheme } from 'native-base'
+import { useSearchParams, useRouter, useNavigation } from 'expo-router'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useSelector, useDispatch } from 'react-redux'
+import { ActivityIndicator } from 'react-native'
 
+import { setMessages, setIsLoaded, setIsLoading } from '@reducers'
+import { RootState } from '@store'
 import { firebase } from '@services'
 import { getChatMessages, sendMessage, markMessageAsRead } from '@services'
 import { generateChatId } from '@utils'
@@ -18,11 +22,14 @@ interface IMessage {
 }
 
 export default function Chat() {
-  const [messages, setMessages] = useState<IChatMessage[]>([])
+  const { messages, isLoaded } = useSelector((state: RootState) => state.chat)
+  const { isLoading } = useSelector((state: RootState) => state.loading)
+  const dispatch = useDispatch()
 
   const { colors } = useTheme()
   const { currentUserId, otherUserId, chatId } = useSearchParams()
   const router = useRouter()
+  const navigation = useNavigation()
 
   const formatMessages = (chatMessages: IMessage[]) => {
     const formattedMessages = chatMessages.map((message) => {
@@ -41,24 +48,32 @@ export default function Chat() {
   }
 
   const fetchChatMessages = async () => {
+    dispatch(setIsLoading(true))
+    
     const chatMessages = await getChatMessages({
       chatId: chatId as string,
       currentUserId: currentUserId as string,
       receiverId: otherUserId as string,
     })
-    if (!chatMessages) return
 
-    const formattedMessages = formatMessages(chatMessages)
-    setMessages(formattedMessages.sort((a, b) => Number(b.createdAt) - Number(a.createdAt)))
-    const unreadMessages = formattedMessages.filter(message => message.user._id !== currentUserId && !message.read)
-    unreadMessages.forEach(message => markMessageAsRead({
-      userId: currentUserId as string,
-      chatId: chatId as string,
-      messageId: message._id,
-    }))
+    if (!chatMessages) {
+      dispatch(setMessages([]))
+      return
+    } else {
+      const formattedMessages = formatMessages(chatMessages)
+      dispatch(setMessages(formattedMessages.sort((a, b) => Number(b.createdAt) - Number(a.createdAt))))
+      const unreadMessages = formattedMessages.filter(message => message.user._id !== currentUserId && !message.read)
+      unreadMessages.forEach(message => markMessageAsRead({
+        userId: currentUserId as string,
+        chatId: chatId as string,
+        messageId: message._id,
+      }))
+    }
+
+    dispatch(setIsLoading(false))
   }
 
-  useEffect(() => {
+  const getCurrentChatId = () => {
     let currentChatId = chatId as string
     if (!currentChatId) {
       currentChatId = generateChatId({
@@ -66,9 +81,21 @@ export default function Chat() {
         userId2: otherUserId as string,
       })
     }
+    return currentChatId
+  }
 
+  const setupChatListener = () => {
+    const currentChatId = getCurrentChatId()
+  
     const inboxRef = firebase.database().ref(`chats/${currentChatId}/messages`)
     inboxRef.orderByChild('timestamp').limitToLast(1).on('child_added', fetchChatMessages)
+  
+    return () => {
+      inboxRef.off('child_added', fetchChatMessages)
+    }
+  }
+
+  const setupUserStatusListener = () => {
     const usersRef = firebase.database().ref(`users/${otherUserId}`)
     usersRef.on('child_changed', snapshot => {
       if (snapshot.key === 'status') {
@@ -77,9 +104,22 @@ export default function Chat() {
         })
       }
     })
+  }
 
+  const setupBlurListener = () => {
+    navigation.addListener('blur', () => {
+      dispatch(setMessages([]))
+    })
+  }
+
+  useEffect(() => {
+    const cleanupChatListener = setupChatListener()
+    setupUserStatusListener()
+    setupBlurListener()
+    dispatch(setIsLoaded(true))
+  
     return () => {
-      inboxRef.off('child_added', fetchChatMessages)
+      cleanupChatListener()
     }
   }, [])
 
@@ -114,6 +154,14 @@ export default function Chat() {
           },
         }}
       />
+    )
+  }
+
+  if (isLoading && !isLoaded) {
+    return (
+      <Center flex={1} bg={useColorModeValue('muted.50', 'gray.800')}>
+        <ActivityIndicator size='large'/>
+      </Center>
     )
   }
 
