@@ -23,6 +23,7 @@ export default function TabsHeader() {
       <HStack alignItems='center' space={2}>
         <IconButton
           variant="ghost"
+          _pressed={{ bg: 'transparent', opacity: 0.5 }}
           icon={
             <Icon
               as={<MaterialCommunityIcons name="menu" />}
