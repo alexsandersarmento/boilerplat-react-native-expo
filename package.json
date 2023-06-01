@@ -35,7 +35,7 @@
     "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-native": "0.71.7",
+    "react-native": "0.71.8",
     "react-native-gesture-handler": "^2.10.0",
     "react-native-gifted-chat": "^2.1.0",
     "react-native-mmkv": "^2.8.0",
