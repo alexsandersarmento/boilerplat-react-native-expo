@@ -19,7 +19,7 @@
     "@react-native-firebase/storage": "^17.4.3",
     "@react-native-google-signin/google-signin": "^9.0.2",
     "@react-navigation/drawer": "^6.6.2",
-    "@react-navigation/routers": "^6.1.8",
+    "@react-navigation/routers": "^7.1.2",
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
     "@typescript-eslint/parser": "^5.46.0",

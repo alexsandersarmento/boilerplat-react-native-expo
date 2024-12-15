@@ -2403,6 +2403,13 @@
   dependencies:
     nanoid "^3.1.23"
 
+"@react-navigation/routers@^7.1.2":
+  version "7.1.2"
+  resolved "https://registry.yarnpkg.com/@react-navigation/routers/-/routers-7.1.2.tgz#647a63e383673de0c4fc10c64a17f551d5da0a17"
+  integrity sha512-emdEjpVDK8zbiu2GChC8oYIAub9i/OpNuQJekVsbyFCBz4/TzaBzms38Q53YaNhdIFNmiYLfHv/Y1Ub7KYfm3w==
+  dependencies:
+    nanoid "3.3.8"
+
 "@react-navigation/stack@^6.3.16":
   version "6.3.16"
   resolved "https://registry.yarnpkg.com/@react-navigation/stack/-/stack-6.3.16.tgz#cf94e3c8c1587455515743e91d328beef722e0ab"
@@ -7288,6 +7295,11 @@ mz@^2.7.0:
     any-promise "^1.0.0"
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
+
+nanoid@3.3.8:
+  version "3.3.8"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.8.tgz#b1be3030bee36aaff18bacb375e5cce521684baf"
+  integrity sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==
 
 nanoid@^3.1.23:
   version "3.3.6"
